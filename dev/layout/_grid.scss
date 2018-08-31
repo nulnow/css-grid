@@ -1,0 +1,50 @@
+%container {
+    width: 100%;
+    margin: 0 auto;
+
+    .row {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        @mixin generate-columns ($screen-size) {
+            @for $i from 1 through 12 {
+                .col-#{$screen-size}-#{$i} {
+                    width: (( $i * 100 / 12 ) + 0%);
+                    padding: 5px;
+                }
+            }
+        }
+
+        @include generate-columns("xs");
+        @include generate-columns("s");
+        @include generate-columns("m");
+        @include generate-columns("l");
+
+        @media (max-width: 700px) {
+            @include generate-columns("xs");
+        }
+
+        @media (min-width: 700px) and (max-width: 1000px){
+            @include generate-columns("s");
+        }
+
+        @media (min-width: 1000px) and (max-width: 1200px) {
+            @include generate-columns("m");
+        }
+
+        @media (min-width: 1200px) {
+            @include generate-columns("l");
+        }
+    }
+}
+
+.container {
+    @extend %container;
+    max-width: 1000px;
+}
+
+.container-fluid {
+    @extend %container;
+}
